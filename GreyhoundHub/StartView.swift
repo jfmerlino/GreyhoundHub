@@ -6,6 +6,8 @@ struct StartView: View{
     @State private var isWorkerLoginViewPresented = false
     @Binding var isLoggedIn: Bool
     @Binding var username: String
+    @Binding var defaultDropoff: String
+    @Binding var ghUsername: String
     @Binding var isWorker: Bool
     
     
@@ -58,8 +60,9 @@ struct StartView: View{
                             .cornerRadius(10)
                     }
                     .sheet(isPresented: $isLoginViewPresented) {
-                        LoginView(username: $username, isLoggedIn: $isLoggedIn, showingLoginSheet: $isLoginViewPresented, isWorker: $isWorker)
+                        LoginView(username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isLoggedIn: $isLoggedIn, showingLoginSheet: $isLoginViewPresented, isWorker: $isWorker)
                     }
+
                 }
                 
                 Spacer()

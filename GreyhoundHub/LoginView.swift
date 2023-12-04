@@ -2,6 +2,8 @@ import SwiftUI
 
 struct LoginView: View {
     @Binding var username: String
+    @Binding var defaultDropoff: String
+    @Binding var ghUsername: String
     @State private var password = ""
     @State private var isCreatingAccount = false
     @State private var loginError: String? = nil
@@ -47,6 +49,12 @@ struct LoginView: View {
                         switch result {
                         case .success(let user):
                             if let userPassword = user["password"] as? String, userPassword == password {
+                                if let dropoff = user["dropoff"] as? String {
+                                    defaultDropoff = dropoff
+                                }
+                                if let ghName = user["ghName"] as? String {
+                                    ghUsername = ghName
+                                }
                                 isLoggedIn = true
                                 isWorker = false
                                 showingLoginSheet = false

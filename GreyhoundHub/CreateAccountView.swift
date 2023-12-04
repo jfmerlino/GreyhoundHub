@@ -3,6 +3,9 @@ import SwiftUI
 struct CreateAccountView: View {
     @State private var newUsername = ""
     @State private var newPassword = ""
+    @State private var newghName = ""
+    @State private var newDropoff = ""
+    
     @State private var accountCreationStatus: String? = nil
     @State private var accountCreationSuccessful = false
     @Binding var creatingAccount: Bool
@@ -31,7 +34,15 @@ struct CreateAccountView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
-                Toggle("Is Worker", isOn: $isWorker)
+                TextField("Grubhub UserName", text: $newghName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                TextField("Default Dropoff", text: $newDropoff)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                Toggle("Would you like to be a worker?", isOn: $isWorker)
                     .padding()
 
                 if let status = accountCreationStatus {
@@ -41,7 +52,7 @@ struct CreateAccountView: View {
                 }
                 
                 Button(action: {
-                    APIService().createUser(isWorker: isWorker, username: newUsername, password: newPassword) { result in
+                    APIService().createUser(dropoff: newDropoff, ghName: newghName, isWorker: isWorker, username: newUsername, password: newPassword) { result in
                         switch result {
                         case .success:
                             accountCreationStatus = "Account created successfully!"

@@ -8,6 +8,9 @@ struct CreateBypassView: View {
     @State private var isShowingAccountSheet = false
     @Binding var isLoggedIn: Bool
     @Binding var username: String
+    @Binding var defaultDropoff: String
+    @Binding var ghUsername: String
+    @Binding var isWorker: Bool
     
     var body: some View {
         ZStack {
@@ -25,10 +28,10 @@ struct CreateBypassView: View {
                 
                 Spacer(minLength: 50)
                 
-                optionButton("Iggys", isPresented: $orderingIggy, view: CreateIggysView(showingSheet: $orderingIggy))
+                optionButton("Iggys", isPresented: $orderingIggy, view: CreateIggysView(showingSheet: $orderingIggy, username: $username))
                 optionButton("Boulder", isPresented: $orderingBoulder, view: CreateBoulderView(showingSheet: $orderingBoulder, username: $username))
-                optionButton("Green & Grey", isPresented: $orderingGreenGrey, view: CreateGreenGreyView(showingSheet: $orderingGreenGrey))
-                optionButton("Starbucks", isPresented: $orderingStarbucks, view: CreateStarbucksView(showingSheet: $orderingStarbucks))
+                optionButton("Green & Grey", isPresented: $orderingGreenGrey, view: CreateGreenGreyView(showingSheet: $orderingGreenGrey, username: $username))
+                optionButton("Starbucks", isPresented: $orderingStarbucks, view: CreateStarbucksView(showingSheet: $orderingStarbucks, username: $username))
             }
         }
     }
@@ -42,7 +45,7 @@ struct CreateBypassView: View {
             .foregroundColor(.primary)
             .padding()
             .sheet(isPresented: $isShowingAccountSheet) {
-                AccountView(showingSheet: $isShowingAccountSheet, loggedIn: $isLoggedIn, username: $username)
+                AccountView(showingSheet: $isShowingAccountSheet, loggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)
             }
         }
     }

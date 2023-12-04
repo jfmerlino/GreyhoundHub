@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		30286F8C2AF5A93D00DC3065 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30286F8B2AF5A93D00DC3065 /* APIService.swift */; };
+		3046DB952B1E75EE00687DFC /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3046DB942B1E75EE00687DFC /* MapView.swift */; };
+		308B00382B1E8315000CB272 /* TestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308B00372B1E8315000CB272 /* TestMapView.swift */; };
 		3F0844752AF42B300080BF41 /* GreyhoundHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0844742AF42B300080BF41 /* GreyhoundHubApp.swift */; };
 		3F0844772AF42B300080BF41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0844762AF42B300080BF41 /* ContentView.swift */; };
 		3F0844792AF42B310080BF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F0844782AF42B310080BF41 /* Assets.xcassets */; };
@@ -46,7 +48,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		301E13B42B1E784A004A688D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		30286F8B2AF5A93D00DC3065 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		3046DB942B1E75EE00687DFC /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		308B00372B1E8315000CB272 /* TestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMapView.swift; sourceTree = "<group>"; };
 		3F0844712AF42B300080BF41 /* GreyhoundHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreyhoundHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0844742AF42B300080BF41 /* GreyhoundHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreyhoundHubApp.swift; sourceTree = "<group>"; };
 		3F0844762AF42B300080BF41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +104,7 @@
 		3F0844682AF42B300080BF41 = {
 			isa = PBXGroup;
 			children = (
+				308B00372B1E8315000CB272 /* TestMapView.swift */,
 				3F0844732AF42B300080BF41 /* GreyhoundHub */,
 				3F0844852AF42B310080BF41 /* GreyhoundHubTests */,
 				3F08448F2AF42B320080BF41 /* GreyhoundHubUITests */,
@@ -119,8 +125,10 @@
 		3F0844732AF42B300080BF41 /* GreyhoundHub */ = {
 			isa = PBXGroup;
 			children = (
+				301E13B42B1E784A004A688D /* Info.plist */,
 				3F0844742AF42B300080BF41 /* GreyhoundHubApp.swift */,
 				3F0844762AF42B300080BF41 /* ContentView.swift */,
+				3046DB942B1E75EE00687DFC /* MapView.swift */,
 				7E4DA4212AF9E96C00151945 /* ByPassView.swift */,
 				7E4DA4132AF9E80000151945 /* AccountView.swift */,
 				7E4DA41F2AF9E91100151945 /* LoginView.swift */,
@@ -300,8 +308,10 @@
 				7E4DA41C2AF9E8D700151945 /* BoulderView.swift in Sources */,
 				30286F8C2AF5A93D00DC3065 /* APIService.swift in Sources */,
 				7E4DA4222AF9E96C00151945 /* ByPassView.swift in Sources */,
+				308B00382B1E8315000CB272 /* TestMapView.swift in Sources */,
 				7EC515FB2AF9F73D00524639 /* WorkerHomeView.swift in Sources */,
 				7E4DA4182AF9E86500151945 /* IggysView.swift in Sources */,
+				3046DB952B1E75EE00687DFC /* MapView.swift in Sources */,
 				7E4DA41A2AF9E89B00151945 /* StarbucksView.swift in Sources */,
 				7E4DA4122AF9E7B100151945 /* CreateAccountView.swift in Sources */,
 				3F0844752AF42B300080BF41 /* GreyhoundHubApp.swift in Sources */,
@@ -463,8 +473,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GreyhoundHub/Preview Content\"";
+				DEVELOPMENT_TEAM = 5TCCXKJ243;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GreyhoundHub/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "GreyhoundGrub wants to display your location.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "GreyhoundGrub wants to display your location.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "GreyhoundGrub wants to display your location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GreyhoundGrub wants to display your location.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -499,8 +515,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GreyhoundHub/Preview Content\"";
+				DEVELOPMENT_TEAM = 5TCCXKJ243;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GreyhoundHub/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "GreyhoundGrub wants to display your location.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "GreyhoundGrub wants to display your location.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "GreyhoundGrub wants to display your location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GreyhoundGrub wants to display your location.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

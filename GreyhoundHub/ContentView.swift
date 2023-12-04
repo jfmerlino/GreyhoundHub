@@ -5,16 +5,21 @@ import Foundation
 struct ContentView: View {
     @State private var isLoggedIn = false
     @State private var username: String = ""
+    @State private var defaultDropoff: String = ""
+    @State private var ghUsername: String = ""
     @State private var isWorker = false
+    
+
+    
     var body: some View {
         if(isLoggedIn && !isWorker){
-            CreateBypassView(isLoggedIn: $isLoggedIn, username: $username)
+            CreateBypassView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)
         }
         else if (isLoggedIn && isWorker){
-            WorkerHomeView(isLoggedIn: $isLoggedIn, username: $username)
+            WorkerHomeView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)
         }
         else{
-            StartView(isLoggedIn: $isLoggedIn, username: $username, isWorker: $isWorker)
+            StartView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)
         }
     }
 }

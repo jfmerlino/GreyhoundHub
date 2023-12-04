@@ -36,7 +36,7 @@ class APIService {
         }.resume()
     }
     
-    func createUser(isWorker: Bool, username: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func createUser(dropoff: String, ghName: String, isWorker: Bool, username: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let endpoint = "/api/users"
         guard let url = URL(string: baseURL + endpoint) else {
             completion(.failure(URLError(.badURL)))
@@ -46,7 +46,7 @@ class APIService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = ["currOrder": nil, "isWorker": isWorker, "username": username, "password": password] as [String : Any?]
+        let body = ["dropoff": dropoff, "ghName": ghName, "currOrder": nil, "isWorker": isWorker, "username": username, "password": password] as [String : Any?]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
         
         URLSession.shared.dataTask(with: request) { (_, response, error) in
@@ -81,6 +81,34 @@ class APIService {
             let body = ["currOrder": newOrder] as [String: Any?]
             request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
 
+            URLSession.shared.dataTask(with: request) { (_, response, error) in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                        let statusError = NSError(domain: "APIService", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "Server responded with status code \(httpResponse.statusCode)"])
+                        completion(.failure(statusError))
+                        return
+                    }
+                    
+                    completion(.success(()))
+                }
+            }.resume()
+        }
+    
+    func deleteUser(username: String, completion: @escaping (Result<Void, Error>) -> Void) {
+            let endpoint = "/users/\(username)"
+            guard let url = URL(string: baseURL + endpoint) else {
+                completion(.failure(URLError(.badURL)))
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            
             URLSession.shared.dataTask(with: request) { (_, response, error) in
                 DispatchQueue.main.async {
                     if let error = error {
