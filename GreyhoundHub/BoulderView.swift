@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CreateBoulderView: View {
     @Binding var showingSheet: Bool
+    @Binding var username: String
     @State var grubhubNumber = ""
     @State var grubhubName = ""
     @State var beingPickedUp = ""
@@ -9,7 +10,9 @@ struct CreateBoulderView: View {
     @State var extra = ""
     
     @State private var storedInputs: [String] = [] // Storing inputs in a list
-    
+    @State private var apiService = APIService() // Instance of APIService
+    @State private var updateResult: Result<Void, Error>? = nil
+
     var body: some View {
         ZStack {
             LinearGradient(
@@ -31,10 +34,20 @@ struct CreateBoulderView: View {
                     textFieldView("Please enter what is being picked up:", placeholder: "Pickup", text: $beingPickedUp)
                     textFieldView("Please enter dropoff location:", placeholder: "Location", text: $locationDropoff)
                     textFieldView("Additional comments or requests:", placeholder: "Extras", text: $extra)
+
+                    // Button to update order
+                    Button("Update Order") {
+                        updateOrderForUser()
+                    }
+                    .buttonStyle(FilledButton())
+                    .padding()
                 }
                 .padding()
             }
         }
+        .alert(isPresented: .constant(updateResult != nil), content: {
+            Alert(title: Text(updateResultTitle), message: Text(updateResultMessage), dismissButton: .default(Text("OK")))
+        })
         .onDisappear {
             // Saving inputs to UserDefaults when view disappears
             storeInputs()
@@ -74,6 +87,42 @@ struct CreateBoulderView: View {
         }
     }
     
+    func updateOrderForUser() {
+        storeInputs()
+        // Combine the inputs into a single string, or use a more structured approach if necessary
+        let orderDetails = storedInputs.joined(separator: ", ")
+
+        // Assuming username is available, replace 'yourUsername' with actual username
+        apiService.updateOrder(username: username, newOrder: orderDetails) { result in
+            self.updateResult = result
+        }
+    }
+
+    var updateResultTitle: String {
+        switch updateResult {
+        case .success:
+            return "Success"
+        case .failure:
+            return "Error"
+        case .none:
+            return ""
+        }
+    }
+
+    var updateResultMessage: String {
+        switch updateResult {
+        case .success:
+            // Joining the storedInputs array elements to create a string representation
+            let inputsString = storedInputs.joined(separator: ", ")
+            return "Order updated successfully with details: \(inputsString)"
+        case .failure(let error):
+            return "Failed to update order: \(error.localizedDescription)"
+        case .none:
+            return ""
+        }
+    }
+
+    
     func storeInputs() {
         storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locationDropoff, extra]
         UserDefaults.standard.set(storedInputs, forKey: "StoredInputsKey")
@@ -93,3 +142,12 @@ struct CreateBoulderView: View {
     }
 }
 
+struct FilledButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+}

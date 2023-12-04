@@ -67,7 +67,35 @@ class APIService {
         }.resume()
     }
     
-    func updateOrder(){
-        
-    }
+    func updateOrder(username: String, newOrder: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+            let endpoint = "/api/users/\(username)"
+            guard let url = URL(string: baseURL + endpoint) else {
+                completion(.failure(URLError(.badURL)))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            let body = ["currOrder": newOrder] as [String: Any?]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+
+            URLSession.shared.dataTask(with: request) { (_, response, error) in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                        let statusError = NSError(domain: "APIService", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "Server responded with status code \(httpResponse.statusCode)"])
+                        completion(.failure(statusError))
+                        return
+                    }
+                    
+                    completion(.success(()))
+                }
+            }.resume()
+        }
 }

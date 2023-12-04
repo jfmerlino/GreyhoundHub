@@ -26,7 +26,7 @@ struct CreateBypassView: View {
                 Spacer(minLength: 50)
                 
                 optionButton("Iggys", isPresented: $orderingIggy, view: CreateIggysView(showingSheet: $orderingIggy))
-                optionButton("Boulder", isPresented: $orderingBoulder, view: CreateBoulderView(showingSheet: $orderingBoulder))
+                optionButton("Boulder", isPresented: $orderingBoulder, view: CreateBoulderView(showingSheet: $orderingBoulder, username: $username))
                 optionButton("Green & Grey", isPresented: $orderingGreenGrey, view: CreateGreenGreyView(showingSheet: $orderingGreenGrey))
                 optionButton("Starbucks", isPresented: $orderingStarbucks, view: CreateStarbucksView(showingSheet: $orderingStarbucks))
             }
