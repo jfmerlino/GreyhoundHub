@@ -12,6 +12,11 @@ struct CreateStarbucksView: View {
     @State private var storedInputs: [String] = [] // Storing inputs in a list
     @State private var apiService = APIService() // Instance of APIService
     @State private var updateResult: Result<Void, Error>? = nil
+    @State var locationDropoffIndex = 0
+    
+    let locations = ["Ahern Hall", "Avila Hall", "Bellarmine Hall", "Butler Hall", "Campion Hall", "Claver Hall", "Dorothy Day Hall", "Fernandez Center", "Fitness and Aquatics Center", "Hammerman Hall", "Hopkins Court", "Humanities Center", "Knott Hall", "Lange Court", "Loyola Notre Dame Library", "Maryland Hall", "McAuley Hall", "Newman Towers", "Rahner Village", "Sellinger School of Business", "Thea Bowman Hall"]
+
+
 
     var body: some View {
         ZStack {
@@ -32,7 +37,19 @@ struct CreateStarbucksView: View {
                     textFieldView("Please enter your Grubhub Number:", placeholder: "Grubhub Number", text: $grubhubNumber)
                     textFieldView("Please enter your Grubhub name for extra security purposes:", placeholder: "Name", text: $grubhubName)
                     textFieldView("Please enter what is being picked up:", placeholder: "Pickup", text: $beingPickedUp)
-                    textFieldView("Please enter dropoff location:", placeholder: "Location", text: $locationDropoff)
+                        Section(header: Text("Dropoff Location").font(.headline)) {
+                            Picker(selection: $locationDropoffIndex, label: Text("Please choose dropoff location").foregroundColor(.green)) {
+                                ForEach(0..<locations.count, id: \.self) { index in
+                                    Text(locations[index]).tag(index)
+                                }
+                            }
+                            .pickerStyle(WheelPickerStyle()) // Or use another style like InlinePickerStyle
+                            .background(Color.white.opacity(0.1)) // Soft background color
+                            .cornerRadius(8)
+                            .padding()
+                        }
+                    
+
                     textFieldView("Additional comments or requests:", placeholder: "Extras", text: $extra)
 
                     // Button to update order
@@ -124,9 +141,9 @@ struct CreateStarbucksView: View {
 
     
     func storeInputs() {
-        storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locationDropoff, extra]
-        UserDefaults.standard.set(storedInputs, forKey: "StoredInputsKey")
-    }
+            storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locations[locationDropoffIndex], extra]
+            UserDefaults.standard.set(storedInputs, forKey: "StoredInputsKey")
+        }
     
     func loadInputs() {
         if let inputs = UserDefaults.standard.stringArray(forKey: "StoredInputsKey") {

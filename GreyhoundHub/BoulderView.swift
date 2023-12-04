@@ -8,10 +8,15 @@ struct CreateBoulderView: View {
     @State var beingPickedUp = ""
     @State var locationDropoff = ""
     @State var extra = ""
+    @State var locationDropoffIndex = 0
+
     
     @State private var storedInputs: [String] = [] // Storing inputs in a list
     @State private var apiService = APIService() // Instance of APIService
     @State private var updateResult: Result<Void, Error>? = nil
+    
+    let locations = ["Ahern Hall", "Avila Hall", "Bellarmine Hall", "Butler Hall", "Campion Hall", "Claver Hall", "Dorothy Day Hall", "Fernandez Center", "Fitness and Aquatics Center", "Hammerman Hall", "Hopkins Court", "Humanities Center", "Knott Hall", "Lange Court", "Loyola Notre Dame Library", "Maryland Hall", "McAuley Hall", "Newman Towers", "Rahner Village", "Sellinger School of Business", "Thea Bowman Hall"]
+
 
     var body: some View {
         ZStack {
@@ -32,7 +37,11 @@ struct CreateBoulderView: View {
                     textFieldView("Please enter your Grubhub Number:", placeholder: "Grubhub Number", text: $grubhubNumber)
                     textFieldView("Please enter your Grubhub name for extra security purposes:", placeholder: "Name", text: $grubhubName)
                     textFieldView("Please enter what is being picked up:", placeholder: "Pickup", text: $beingPickedUp)
-                    textFieldView("Please enter dropoff location:", placeholder: "Location", text: $locationDropoff)
+                    Picker(selection: $locationDropoffIndex, label: Text("Please choose dropoff location"), content: {
+                        ForEach(0..<21) { index in
+                          Text(locations[index]).tag(index)
+                      }
+                    })
                     textFieldView("Additional comments or requests:", placeholder: "Extras", text: $extra)
 
                     // Button to update order
@@ -124,7 +133,7 @@ struct CreateBoulderView: View {
 
     
     func storeInputs() {
-        storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locationDropoff, extra]
+        storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locations[locationDropoffIndex], extra]
         UserDefaults.standard.set(storedInputs, forKey: "StoredInputsKey")
     }
     
