@@ -36,7 +36,7 @@ class APIService {
         }.resume()
     }
     
-    func createUser(username: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func createUser(isWorker: Bool, username: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let endpoint = "/api/users"
         guard let url = URL(string: baseURL + endpoint) else {
             completion(.failure(URLError(.badURL)))
@@ -46,7 +46,7 @@ class APIService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = ["username": username, "password": password]
+        let body = ["currOrder": nil, "isWorker": isWorker, "username": username, "password": password] as [String : Any?]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
         
         URLSession.shared.dataTask(with: request) { (_, response, error) in
@@ -65,5 +65,9 @@ class APIService {
                 completion(.success(()))
             }
         }.resume()
+    }
+    
+    func updateOrder(){
+        
     }
 }

@@ -8,6 +8,8 @@ struct CreateStarbucksView: View {
     @State var locationDropoff = ""
     @State var extra = ""
     
+    @State private var storedInputs: [String] = [] // Storing inputs in a list
+    
     var body: some View {
         ZStack {
             backgroundGradient
@@ -26,6 +28,14 @@ struct CreateStarbucksView: View {
                 }
                 .padding()
             }
+        }
+        .onDisappear {
+            // Saving inputs to UserDefaults when view disappears
+            storeInputs()
+        }
+        .onAppear {
+            // Loading inputs from UserDefaults when view appears
+            loadInputs()
         }
     }
     
@@ -66,4 +76,23 @@ struct CreateStarbucksView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
         }
     }
+    
+    func storeInputs() {
+        storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locationDropoff, extra]
+        UserDefaults.standard.set(storedInputs, forKey: "StarbucksStoredInputsKey")
+    }
+    
+    func loadInputs() {
+        if let inputs = UserDefaults.standard.stringArray(forKey: "StarbucksStoredInputsKey") {
+            storedInputs = inputs
+            if storedInputs.count == 5 { // Assuming 5 inputs
+                grubhubNumber = storedInputs[0]
+                grubhubName = storedInputs[1]
+                beingPickedUp = storedInputs[2]
+                locationDropoff = storedInputs[3]
+                extra = storedInputs[4]
+            }
+        }
+    }
 }
+

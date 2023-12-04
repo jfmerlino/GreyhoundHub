@@ -6,6 +6,7 @@ struct CreateAccountView: View {
     @State private var accountCreationStatus: String? = nil
     @State private var accountCreationSuccessful = false
     @Binding var creatingAccount: Bool
+    @State var isWorker = false
 
     var body: some View {
         ZStack {
@@ -29,6 +30,9 @@ struct CreateAccountView: View {
                 SecureField("Password", text: $newPassword)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                
+                Toggle("Is Worker", isOn: $isWorker)
+                    .padding()
 
                 if let status = accountCreationStatus {
                     Text(status)
@@ -37,7 +41,7 @@ struct CreateAccountView: View {
                 }
                 
                 Button(action: {
-                    APIService().createUser(username: newUsername, password: newPassword) { result in
+                    APIService().createUser(isWorker: isWorker, username: newUsername, password: newPassword) { result in
                         switch result {
                         case .success:
                             accountCreationStatus = "Account created successfully!"
