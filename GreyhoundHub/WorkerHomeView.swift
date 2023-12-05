@@ -4,6 +4,7 @@ struct WorkerHomeView: View {
     
     @State private var isShowingAccountSheet = false
     @State private var showMapView = false
+    @State private var showingNewJobSheet = false
     @Binding var isLoggedIn: Bool
     @Binding var username: String
     @Binding var defaultDropoff: String
@@ -61,6 +62,7 @@ struct WorkerHomeView: View {
                     
                     Button(action: {
                         //Go to new order view
+                        showingNewJobSheet.toggle()
                     }) {
                         Text("Select New Job")
                             .foregroundColor(.mint)
@@ -70,6 +72,9 @@ struct WorkerHomeView: View {
                             .frame(minHeight: 120)
                             .background(Color.gray)
                             .cornerRadius(10)
+                    }
+                    .sheet(isPresented: $showingNewJobSheet) {
+                        NewJobView(showingSheet: $showingNewJobSheet)
                     }
                     
                 }
