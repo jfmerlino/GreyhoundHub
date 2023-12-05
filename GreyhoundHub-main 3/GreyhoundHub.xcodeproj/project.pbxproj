@@ -11,6 +11,7 @@
 		3046DB952B1E75EE00687DFC /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3046DB942B1E75EE00687DFC /* MapView.swift */; };
 		308B00382B1E8315000CB272 /* TestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308B00372B1E8315000CB272 /* TestMapView.swift */; };
 		30F03ABB2B1EC33A0094D8CC /* NewJobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F03ABA2B1EC3390094D8CC /* NewJobView.swift */; };
+		30F03ABD2B1F04380094D8CC /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F03ABC2B1F04380094D8CC /* PaymentView.swift */; };
 		3F0844752AF42B300080BF41 /* GreyhoundHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0844742AF42B300080BF41 /* GreyhoundHubApp.swift */; };
 		3F0844772AF42B300080BF41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0844762AF42B300080BF41 /* ContentView.swift */; };
 		3F0844792AF42B310080BF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F0844782AF42B310080BF41 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		3046DB942B1E75EE00687DFC /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		308B00372B1E8315000CB272 /* TestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMapView.swift; sourceTree = "<group>"; };
 		30F03ABA2B1EC3390094D8CC /* NewJobView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewJobView.swift; sourceTree = "<group>"; };
+		30F03ABC2B1F04380094D8CC /* PaymentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		3F0844712AF42B300080BF41 /* GreyhoundHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreyhoundHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0844742AF42B300080BF41 /* GreyhoundHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreyhoundHubApp.swift; sourceTree = "<group>"; };
 		3F0844762AF42B300080BF41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				7EC515FA2AF9F73D00524639 /* WorkerHomeView.swift */,
 				30F03ABA2B1EC3390094D8CC /* NewJobView.swift */,
 				3046DB942B1E75EE00687DFC /* MapView.swift */,
+				30F03ABC2B1F04380094D8CC /* PaymentView.swift */,
 				3F0844782AF42B310080BF41 /* Assets.xcassets */,
 				3F08447A2AF42B310080BF41 /* GreyhoundHub.entitlements */,
 				3F08447B2AF42B310080BF41 /* Preview Content */,
@@ -320,6 +323,7 @@
 				7E4DA4182AF9E86500151945 /* IggysView.swift in Sources */,
 				3046DB952B1E75EE00687DFC /* MapView.swift in Sources */,
 				7E4DA41A2AF9E89B00151945 /* StarbucksView.swift in Sources */,
+				30F03ABD2B1F04380094D8CC /* PaymentView.swift in Sources */,
 				7E4DA4122AF9E7B100151945 /* CreateAccountView.swift in Sources */,
 				3F0844752AF42B300080BF41 /* GreyhoundHubApp.swift in Sources */,
 				3F45E3B02B1EEC1B000A7CE0 /* StudentOrderView.swift in Sources */,
