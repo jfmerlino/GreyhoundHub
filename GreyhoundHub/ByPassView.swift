@@ -6,6 +6,7 @@ struct CreateBypassView: View {
     @State private var orderingGreenGrey = false
     @State private var orderingStarbucks = false
     @State private var isShowingAccountSheet = false
+    @State private var showCurrentOrder = false
     @Binding var isLoggedIn: Bool
     @Binding var username: String
     @Binding var defaultDropoff: String
@@ -27,12 +28,15 @@ struct CreateBypassView: View {
                 titleView
                 
                 Spacer(minLength: 50)
-                
+                optionButton("View Current Order", isPresented: $showCurrentOrder, view: StudentOrderView(isShowingOrdering: $showCurrentOrder, user: $username))
                 optionButton("Iggys", isPresented: $orderingIggy, view: CreateIggysView(showingSheet: $orderingIggy, username: $username))
                 optionButton("Boulder", isPresented: $orderingBoulder, view: CreateBoulderView(showingSheet: $orderingBoulder, username: $username))
                 optionButton("Green & Grey", isPresented: $orderingGreenGrey, view: CreateGreenGreyView(showingSheet: $orderingGreenGrey, username: $username))
                 optionButton("Starbucks", isPresented: $orderingStarbucks, view: CreateStarbucksView(showingSheet: $orderingStarbucks, username: $username))
             }
+        }
+        .onAppear{
+            
         }
     }
     
