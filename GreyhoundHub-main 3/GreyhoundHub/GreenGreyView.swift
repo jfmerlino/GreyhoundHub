@@ -30,21 +30,29 @@ struct CreateGreenGreyView: View {
             .ignoresSafeArea()
             
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 5) {
                     closeButton
                     titleView
                     
-                    Spacer(minLength: 20)
+                    Spacer(minLength: 5)
                     
                     textFieldView("Please enter your Grubhub Number:", placeholder: "Grubhub Number", text: $grubhubNumber)
                     textFieldView("Please enter your Grubhub name for extra security purposes:", placeholder: "Name", text: $grubhubName)
                     textFieldView("Please enter what is being picked up:", placeholder: "Pickup", text: $beingPickedUp)
-                    Picker(selection: $locationDropoffIndex, label: Text("Please choose dropoff location"), content: {
-                        ForEach(0..<21) { index in
-                          Text(locations[index]).tag(index)
-                      }
-                    })                    
                     textFieldView("Additional comments or requests:", placeholder: "Extras", text: $extra)
+
+                    Section(header: Text("Dropoff Location").font(.headline)) {
+                        Picker(selection: $locationDropoffIndex, label: Text("Please choose dropoff location").foregroundColor(.green)) {
+                            ForEach(0..<locations.count, id: \.self) { index in
+                                Text(locations[index]).tag(index)
+                            }
+                        }
+                        .pickerStyle(InlinePickerStyle())
+                        .frame(width: 300, height: 100)
+                        .background(Color.white.opacity(0.1)) // Soft background color
+                        .cornerRadius(8)
+                        .padding()
+                    }
 
                     // Button to update order
                     Button("Update Order") {
@@ -150,7 +158,6 @@ struct CreateGreenGreyView: View {
             storedInputs = inputs
             if storedInputs.count == 7 { // Assuming 5 inputs
                 orderStatus = storedInputs[0]
-                name = storedInputs[1]
                 grubhubNumber = storedInputs[2]
                 grubhubName = storedInputs[3]
                 beingPickedUp = storedInputs[4]

@@ -177,7 +177,6 @@ struct CreateStarbucksView: View {
             storedInputs = inputs
             if storedInputs.count == 7 { // Assuming 5 inputs
                 orderStatus = storedInputs[0]
-                name = storedInputs[1]
                 grubhubNumber = storedInputs[2]
                 grubhubName = storedInputs[3]
                 beingPickedUp = storedInputs[4]
