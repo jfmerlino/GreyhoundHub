@@ -3,6 +3,41 @@ import Foundation
 class APIService {
     let baseURL = "https://us-central1-greyhoundhub-852eb.cloudfunctions.net"
 
+    func getAllUsers(completion: @escaping (Result<[[String: Any]], Error>) -> Void) {
+        let endpoint = "/api/users" // Assuming this is the endpoint to fetch all users
+        guard let url = URL(string: baseURL + endpoint) else {
+            completion(.failure(URLError(.badURL)))
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(URLError(.badServerResponse)))
+                    return
+                }
+                
+                do {
+                    // Assuming the server returns an array of user data
+                    if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] {
+                        completion(.success(jsonArray))
+                    } else {
+                        let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Data formatted incorrectly"])
+                        completion(.failure(error))
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+
+    
     func getUser(by username: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
         let endpoint = "/api/users/\(username)"
         guard let url = URL(string: baseURL + endpoint) else {
