@@ -8,6 +8,10 @@ struct CreateBoulderView: View {
     @State var beingPickedUp = ""
     @State var locationDropoff = ""
     @State var extra = ""
+    @State var orderStatus = "New"
+    @State var name = "Boulder"
+    @State var showingPayment = false
+
     
     @State private var storedInputs: [String] = [] // Storing inputs in a list
     @State private var apiService = APIService() // Instance of APIService
@@ -55,6 +59,7 @@ struct CreateBoulderView: View {
                     // Button to update order
                     Button("Update Order") {
                         updateOrderForUser()
+                        showingPayment.toggle()
                     }
                     .buttonStyle(FilledButton())
                     .padding()
@@ -87,6 +92,10 @@ struct CreateBoulderView: View {
                 }
             }
         )
+        .sheet(isPresented: $showingPayment){
+            PaymentView(isShowingPaymentView: $showingPayment, isShowingChoices: $showingSheet)
+        }
+
     }
     
     var closeButton: some View {
@@ -159,19 +168,21 @@ struct CreateBoulderView: View {
     }
 
     func storeInputs() {
-        storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locations[locationDropoffIndex], extra]
+        storedInputs = [orderStatus, name, grubhubNumber, grubhubName, beingPickedUp, locations[locationDropoffIndex], extra]
         UserDefaults.standard.set(storedInputs, forKey: "StoredInputsKey")
     }
     
     func loadInputs() {
         if let inputs = UserDefaults.standard.stringArray(forKey: "StoredInputsKey") {
             storedInputs = inputs
-            if storedInputs.count == 5 { // Assuming 5 inputs
-                grubhubNumber = storedInputs[0]
-                grubhubName = storedInputs[1]
-                beingPickedUp = storedInputs[2]
-                locationDropoff = storedInputs[3]
-                extra = storedInputs[4]
+            if storedInputs.count == 7 { // Assuming 5 inputs
+                orderStatus = storedInputs[0]
+                name = storedInputs[1]
+                grubhubNumber = storedInputs[2]
+                grubhubName = storedInputs[3]
+                beingPickedUp = storedInputs[4]
+                locationDropoff = storedInputs[5]
+                extra = storedInputs[6]
             }
         }
     }
