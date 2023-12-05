@@ -59,7 +59,7 @@ struct WorkerHomeView: View {
                             .cornerRadius(10)
                     }
                     .sheet(isPresented: $isShowingMap) {
-                        //MapView(dropOffPoint: $locationName, dropOffLat: 0.0, dropOffLong: 0.0)
+                        MapView(dropOffPoint: $userDetails, dropOffLat: 0.0, dropOffLong: 0.0)
                     }
 
                     

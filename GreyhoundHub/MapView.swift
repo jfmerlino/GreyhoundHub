@@ -82,10 +82,12 @@ struct MapView: View {
                 VStack {
                     if let location = locationManager.location {
                         Spacer()
-                        Text("Head to \(dropOffPoint[-2])")
+                        Text("Head to \(dropOffPoint[3])")
                             .font(.headline)
-                        Text("**[PERSON]**")
-                        Text("is delivering your food from [LOCATION]")
+                        Text("**Order Number: \(dropOffPoint[0])**")
+                        Text("**Order For: \(dropOffPoint[1])**")
+                        Text("**Item: \(dropOffPoint[2])**")
+                        //Text("is delivering your food from \(dropOffPoint[5])")
                         Spacer()
                         Spacer()
                     }
@@ -96,7 +98,7 @@ struct MapView: View {
             }
         }
         .onAppear {
-            drop = dropOffPoint[-2]
+            drop = dropOffPoint[3]
             if let drop = drop, let location = locations[drop] {
                 let dropLocation = location
                 // Now `dropLocation` contains the corresponding `CLLocationCoordinate2D` value for the given `dropCoordinate`
