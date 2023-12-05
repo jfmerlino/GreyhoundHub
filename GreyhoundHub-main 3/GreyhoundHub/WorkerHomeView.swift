@@ -14,7 +14,7 @@ struct WorkerHomeView: View {
     @Binding var isWorker: Bool
     @State var locationName: String
     @Binding var orderName: String
-
+    
     
     
     var body: some View{
@@ -66,7 +66,9 @@ struct WorkerHomeView: View {
                 }
                 Spacer()
             }
+            .sheet(isPresented: $isShowingMap) {
+                MapView(dropOffPoint: $userDetails, dropOffLat: 0.0, dropOffLong: 0.0, orderName: $orderName, isShowingMap: $isShowingMap)
+            }
         }
     }
 }
-

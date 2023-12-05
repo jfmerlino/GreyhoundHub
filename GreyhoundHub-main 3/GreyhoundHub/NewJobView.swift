@@ -84,12 +84,6 @@ struct NewJobView: View {
                 }
             }
         }
-//        .sheet(isPresented: $showUserDetails, onDismiss: {
-//            //self.userDetails = []
-//            //MapView(dropOffPoint: $userDetails, dropOffLat: 0.0, dropOffLong: 0.0)
-//        }) {
-//            UserDetailsView(userDetails: self.userDetails)
-//        }
         .onAppear {
             apiService.getAllUsers { result in
                 switch result {

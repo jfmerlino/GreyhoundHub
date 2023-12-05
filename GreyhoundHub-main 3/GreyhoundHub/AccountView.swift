@@ -60,17 +60,7 @@ struct AccountView: View {
                 .padding(.horizontal)
 
                 // Delete account button
-                Button(action: {
-                    deleteUser()
-                }) {
-                    Text("Delete Account")
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal)
+                
             }
             .padding(.top)
         }

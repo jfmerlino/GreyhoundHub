@@ -85,11 +85,14 @@ struct MapView: View {
                 VStack {
                     if let location = locationManager.location {
                         Spacer()
-                        Text("Head to \(dropOffPoint[3])")
+                        Text("\(dropOffPoint[1]) -> \(dropOffPoint[5])")
                             .font(.headline)
-                        Text("**Order Number: \(dropOffPoint[0])**")
-                        Text("**Order For: \(dropOffPoint[1])**")
-                        Text("**Item: \(dropOffPoint[2])**")
+                        Text("**Order Number: \(dropOffPoint[2])**")
+                        Text("**Order For: \(dropOffPoint[3])**")
+                        Text("**Item: \(dropOffPoint[4])**")
+                        if dropOffPoint.count == 7 {
+                            Text("**Special Instructions: \(dropOffPoint[6])**")
+                        }
                         Spacer()
                         Button("Complete Order"){
                             isShowingMap = false
