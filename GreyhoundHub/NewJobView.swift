@@ -29,8 +29,9 @@ struct UserDetailsView: View {
 struct NewJobView: View {
     @State private var apiService = APIService()
     @Binding var showingSheet: Bool
+    @Binding var showingMapSheet: Bool
     @State var users = [UserData]()
-    @State private var userDetails: [String] = []
+    @Binding var userDetails: [String]
     @State private var showUserDetails = false
 
     var body: some View {
@@ -59,7 +60,8 @@ struct NewJobView: View {
                             if let currOrder = user.currOrder {
                                 self.userDetails = currOrder.components(separatedBy: ", ").filter { !$0.isEmpty }
                             }
-                            self.showUserDetails = true
+                            self.showingMapSheet = true
+                            self.showingSheet = false
                         }) {
                             Text(user.username) // Display the user's username
                                 .foregroundColor(.white)
@@ -72,12 +74,12 @@ struct NewJobView: View {
                 }
             }
         }
-        .sheet(isPresented: $showUserDetails, onDismiss: {
-            //self.userDetails = []
-            MapView(dropOffPoint: userDetails, dropOffLat: 0.0, dropOffLong: 0.0)
-        }) {
-            UserDetailsView(userDetails: self.userDetails)
-        }
+//        .sheet(isPresented: $showUserDetails, onDismiss: {
+//            //self.userDetails = []
+//            //MapView(dropOffPoint: $userDetails, dropOffLat: 0.0, dropOffLong: 0.0)
+//        }) {
+//            UserDetailsView(userDetails: self.userDetails)
+//        }
         .onAppear {
             apiService.getAllUsers { result in
                 switch result {
