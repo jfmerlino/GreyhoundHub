@@ -113,7 +113,7 @@ struct MapView: View {
             }
         }
         .onAppear {
-            drop = dropOffPoint[3]
+            drop = dropOffPoint[5]
             if let drop = drop, let location = locations[drop] {
                 let dropLocation = location
                 // Now `dropLocation` contains the corresponding `CLLocationCoordinate2D` value for the given `dropCoordinate`
