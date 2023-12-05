@@ -3,10 +3,8 @@ import MapKit
 import CoreLocation
 import CoreLocationUI
 
-struct CustomAnnotationItemIdentifiable: Identifiable {
-    var id: ObjectIdentifier
-    
-    let title: String
+struct CustomAnnotation: Identifiable {
+    var id: UUID
     let coordinate: CLLocationCoordinate2D
 }
 
@@ -16,55 +14,58 @@ struct MapView: View {
         center: CLLocationCoordinate2D(latitude: 39.3477, longitude: -76.6172),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
-    @State private var dropOffLocation = CLLocationCoordinate2D(latitude: 39.3477, longitude: -76.6172)
+    @Binding private var dropOffPoint: String
+    @Binding private var dropOffLat: Double
+    @Binding private var dropOffLong: Double
+    @State private var dropCoordinate: CLLocationCoordinate2D?
+
+    // Expose the annotation using a computed property
+    @State private var annotations: [CustomAnnotation] = []
 
     var body: some View {
+        VStack {
+            if let location = locationManager.location {
+                Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: .constant(.follow), annotationItems: annotations) { annotation in
+                    MapAnnotation(coordinate: annotation.coordinate) {
+                        Image(systemName: "mappin.and.ellipse")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 40)
+                            .foregroundColor(.red)
+                    }
+                }
+                .ignoresSafeArea()
+                .gesture(DragGesture())
+            }
             VStack {
-                if let location = locationManager.location {
-                    Map(coordinateRegion: $region,
-                        interactionModes: .all,
-                        showsUserLocation: true,
-                        userTrackingMode: .constant(.follow),
-                        annotationItems: [CustomAnnotationItemIdentifiable(id: <#ObjectIdentifier#>, title: "Apple", coordinate: CLLocationCoordinate2D(latitude: 37.334722, longitude: -122.008889))]) { item in
-                            MapAnnotation(coordinate: item.coordinate) {
-                                Image(systemName: "apple.logo")
-                                    .padding(4)
-                                    .foregroundStyle(.white)
-                            }
-                    }
-
+                HStack {
+                    Text("**GreyhoundGrub**")
+                        .font(.system(size: 28))
+                        .foregroundColor(.green)
                 }
-                else {
-                    ProgressView()
-                        .scaleEffect(3.74)
-                        .tint(.green)
-                        .padding(200)
-                }
-
                 VStack {
-                    HStack {
-                        Text("**GreyhoundGrub**")
-                            .font(.system(size: 28))
-                            .foregroundColor(.green)
+                    if let location = locationManager.location {
+                        Spacer()
+                        Text("Estimated wait [TIME]")
+                        Text("**[PERSON]**")
+                        Text("is delivering your food from [LOCATION]")
+                        Spacer()
+                        Spacer()
                     }
-                    VStack {
-                        if let location = locationManager.location {
-                            Spacer()
-                            Text("Estimated wait [TIME]")
-                            Text("**[PERSON]**")
-                            Text("is delivering your food from [LOCATION]")
-                            Spacer()
-                            Spacer()
-                        }
-                    }
-                    .foregroundColor(.green)
-                    .tint(.green)
-                    Spacer()
                 }
+                .foregroundColor(.green)
+                .tint(.green)
+                Spacer()
             }
-            .onAppear{
-                locationManager.requestLocation()
-            }
+        }
+        .onAppear {
+            locationManager.requestLocation()
+            // Set the drop coordinate here based on your logic or pass it in from the outside
+            dropCoordinate = CLLocationCoordinate2D(latitude: dropOffLat, longitude: dropOffLong)
+
+            // Add dropCoordinate to the annotations array
+            annotations.append(CustomAnnotation(id: UUID(), coordinate: dropCoordinate!))
+        }
     }
 }
 
@@ -102,12 +103,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 }
 
-
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
-}
 
 /*
 let locations: [String: CLLocationCoordinate2D] = [
