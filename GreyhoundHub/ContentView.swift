@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreLocation
 import Foundation
 
 
@@ -16,7 +17,7 @@ struct ContentView: View {
             CreateBypassView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)
         }
         else if (isLoggedIn && isWorker){
-            WorkerHomeView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)
+            WorkerHomeView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker, locationName: "loyola")
         }
         else{
             StartView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)

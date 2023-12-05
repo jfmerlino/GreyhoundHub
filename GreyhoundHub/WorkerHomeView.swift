@@ -1,15 +1,16 @@
 import SwiftUI
+import CoreLocation
 
 struct WorkerHomeView: View {
     
     @State private var isShowingAccountSheet = false
-    @State private var showMapView = false
-    @State private var showingNewJobSheet = false
+    @State private var isShowingMap = false
     @Binding var isLoggedIn: Bool
     @Binding var username: String
     @Binding var defaultDropoff: String
     @Binding var ghUsername: String
     @Binding var isWorker: Bool
+    @State var locationName: String
 
     
     
@@ -44,8 +45,7 @@ struct WorkerHomeView: View {
                 Spacer()
                 HStack{
                     Button(action: {
-                        //Go to current order view
-                        showMapView = true
+                        isShowingMap = true
                     }) {
                         Text("Current Job")
                             .foregroundColor(.mint)
@@ -56,13 +56,13 @@ struct WorkerHomeView: View {
                             .background(Color.gray)
                             .cornerRadius(10)
                     }
-                    .fullScreenCover(isPresented: $showMapView) {
-                        MapView()
+                    .sheet(isPresented: $isShowingMap) {
+                        MapView(dropOffPoint: $locationName, dropOffLat: 0.0, dropOffLong: 0.0)
                     }
+
                     
                     Button(action: {
                         //Go to new order view
-                        showingNewJobSheet.toggle()
                     }) {
                         Text("Select New Job")
                             .foregroundColor(.mint)
@@ -72,9 +72,6 @@ struct WorkerHomeView: View {
                             .frame(minHeight: 120)
                             .background(Color.gray)
                             .cornerRadius(10)
-                    }
-                    .sheet(isPresented: $showingNewJobSheet) {
-                        NewJobView(showingSheet: $showingNewJobSheet)
                     }
                     
                 }
