@@ -28,30 +28,30 @@ struct CreateStarbucksView: View {
             .ignoresSafeArea()
             
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 5) {
                     closeButton
                     titleView
                     
-                    Spacer(minLength: 20)
+                    Spacer(minLength: 5)
                     
                     textFieldView("Please enter your Grubhub Number:", placeholder: "Grubhub Number", text: $grubhubNumber)
                     textFieldView("Please enter your Grubhub name for extra security purposes:", placeholder: "Name", text: $grubhubName)
                     textFieldView("Please enter what is being picked up:", placeholder: "Pickup", text: $beingPickedUp)
+                    textFieldView("Additional comments or requests:", placeholder: "Extras", text: $extra)
+
                         Section(header: Text("Dropoff Location").font(.headline)) {
                             Picker(selection: $locationDropoffIndex, label: Text("Please choose dropoff location").foregroundColor(.green)) {
                                 ForEach(0..<locations.count, id: \.self) { index in
                                     Text(locations[index]).tag(index)
                                 }
                             }
-                            .pickerStyle(WheelPickerStyle()) // Or use another style like InlinePickerStyle
+                            .pickerStyle(InlinePickerStyle())
+                            .frame(width: 300, height: 100)
                             .background(Color.white.opacity(0.1)) // Soft background color
                             .cornerRadius(8)
                             .padding()
                         }
                     
-
-                    textFieldView("Additional comments or requests:", placeholder: "Extras", text: $extra)
-
                     // Button to update order
                     Button("Update Order") {
                         updateOrderForUser()
@@ -90,7 +90,7 @@ struct CreateStarbucksView: View {
     
     var titleView: some View {
         Text("Starbucks")
-            .font(.system(size: 48))
+            .font(.system(size: 35))
             .fontWeight(.bold)
             .foregroundColor(.white)
     }
