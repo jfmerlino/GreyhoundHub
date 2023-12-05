@@ -33,6 +33,7 @@ struct NewJobView: View {
     @State var users = [UserData]()
     @Binding var userDetails: [String]
     @State private var showUserDetails = false
+    @Binding var orderName: String
 
     var body: some View {
         ZStack {
@@ -60,6 +61,7 @@ struct NewJobView: View {
                             if let currOrder = user.currOrder {
                                 self.userDetails = currOrder.components(separatedBy: ", ").filter { !$0.isEmpty }
                             }
+                            self.orderName = user.username
                             self.showingMapSheet = true
                             self.showingSheet = false
                         }) {

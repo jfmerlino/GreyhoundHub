@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var defaultDropoff: String = ""
     @State private var ghUsername: String = ""
     @State private var isWorker = false
+    @State private var orderName: String = ""
     
 
     
@@ -17,7 +18,7 @@ struct ContentView: View {
             CreateBypassView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)
         }
         else if (isLoggedIn && isWorker){
-            WorkerHomeView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker, locationName: "loyola")
+            WorkerHomeView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker, locationName: "loyola", orderName: $orderName)
         }
         else{
             StartView(isLoggedIn: $isLoggedIn, username: $username, defaultDropoff: $defaultDropoff, ghUsername: $ghUsername, isWorker: $isWorker)

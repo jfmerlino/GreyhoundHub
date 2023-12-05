@@ -42,6 +42,9 @@ struct MapView: View {
     @State var dropOffLong: Double
     @State var dropCoordinate: CLLocationCoordinate2D?
     @State private var formattedTravelTime: String = ""
+    @State private var apiService = APIService()
+    @Binding var orderName: String
+    @Binding var isShowingMap: Bool
 
     @State private var annotations: [CustomAnnotation] = []
     
@@ -87,6 +90,15 @@ struct MapView: View {
                         Text("**Order Number: \(dropOffPoint[0])**")
                         Text("**Order For: \(dropOffPoint[1])**")
                         Text("**Item: \(dropOffPoint[2])**")
+                        Spacer()
+                        Button("Complete Order"){
+                            isShowingMap = false
+                            apiService.updateOrder(username: orderName, newOrder: nil) { result in
+                            }
+                            
+                        }
+                        .buttonStyle(FilledButton())
+                        .padding()
                         //Text("is delivering your food from \(dropOffPoint[5])")
                         Spacer()
                         Spacer()
