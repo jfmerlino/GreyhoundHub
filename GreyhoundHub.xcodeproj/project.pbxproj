@@ -10,6 +10,7 @@
 		30286F8C2AF5A93D00DC3065 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30286F8B2AF5A93D00DC3065 /* APIService.swift */; };
 		3046DB952B1E75EE00687DFC /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3046DB942B1E75EE00687DFC /* MapView.swift */; };
 		308B00382B1E8315000CB272 /* TestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308B00372B1E8315000CB272 /* TestMapView.swift */; };
+		30F03ABB2B1EC33A0094D8CC /* NewJobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F03ABA2B1EC3390094D8CC /* NewJobView.swift */; };
 		3F0844752AF42B300080BF41 /* GreyhoundHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0844742AF42B300080BF41 /* GreyhoundHubApp.swift */; };
 		3F0844772AF42B300080BF41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0844762AF42B300080BF41 /* ContentView.swift */; };
 		3F0844792AF42B310080BF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F0844782AF42B310080BF41 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		30286F8B2AF5A93D00DC3065 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		3046DB942B1E75EE00687DFC /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		308B00372B1E8315000CB272 /* TestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMapView.swift; sourceTree = "<group>"; };
+		30F03ABA2B1EC3390094D8CC /* NewJobView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewJobView.swift; sourceTree = "<group>"; };
 		3F0844712AF42B300080BF41 /* GreyhoundHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreyhoundHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0844742AF42B300080BF41 /* GreyhoundHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreyhoundHubApp.swift; sourceTree = "<group>"; };
 		3F0844762AF42B300080BF41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				7E4DA4172AF9E86500151945 /* IggysView.swift */,
 				7E4DA4152AF9E83600151945 /* GreenGreyView.swift */,
 				7E4DA4112AF9E7B100151945 /* CreateAccountView.swift */,
+				30F03ABA2B1EC3390094D8CC /* NewJobView.swift */,
 				3F0844782AF42B310080BF41 /* Assets.xcassets */,
 				3F08447A2AF42B310080BF41 /* GreyhoundHub.entitlements */,
 				3F08447B2AF42B310080BF41 /* Preview Content */,
@@ -303,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30F03ABB2B1EC33A0094D8CC /* NewJobView.swift in Sources */,
 				3F0844772AF42B300080BF41 /* ContentView.swift in Sources */,
 				7E4DA41E2AF9E8FA00151945 /* StartView.swift in Sources */,
 				7E4DA41C2AF9E8D700151945 /* BoulderView.swift in Sources */,
