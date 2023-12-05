@@ -11,6 +11,8 @@ struct LoginView: View {
     @Binding var isLoggedIn: Bool
     @Binding var showingLoginSheet: Bool
     @Binding var isWorker: Bool
+    
+    @State private var isLoading = false // New state for loading screen
 
     var body: some View {
         ZStack {
@@ -45,26 +47,7 @@ struct LoginView: View {
                 }
 
                 Button(action: {
-                    APIService().getUser(by: username) { result in
-                        switch result {
-                        case .success(let user):
-                            if let userPassword = user["password"] as? String, userPassword == password {
-                                if let dropoff = user["dropoff"] as? String {
-                                    defaultDropoff = dropoff
-                                }
-                                if let ghName = user["ghName"] as? String {
-                                    ghUsername = ghName
-                                }
-                                isLoggedIn = true
-                                isWorker = false
-                                showingLoginSheet = false
-                            } else {
-                                self.loginError = "Invalid username or password"
-                            }
-                        case .failure(_):
-                            self.loginError = "User not found"
-                        }
-                    }
+                    loginAction()
                 }) {
                     Text("Login")
                         .font(.title)
@@ -92,6 +75,35 @@ struct LoginView: View {
                     CreateAccountView(creatingAccount: $isCreatingAccount)
                 }
             }
+            
+            // Loading screen
+            if isLoading {
+                Color.white.opacity(0.7) // Example loading screen color
+                    .ignoresSafeArea()
+                    .overlay(
+                        Text("Logging in...")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                    )
+            }
+        }
+    }
+    
+    func loginAction() {
+        // Show loading screen
+        isLoading = true
+        
+        // Perform login actions...
+        // Your login logic here...
+        // Upon completion, hide loading screen
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            isLoading = false // Simulating login delay with DispatchQueue
+            // Example of successful login
+            isLoggedIn = true
+            isWorker = false
+            showingLoginSheet = false
         }
     }
 }
+

@@ -15,8 +15,8 @@ struct CreateStarbucksView: View {
     @State var locationDropoffIndex = 0
     
     let locations = ["Ahern Hall", "Avila Hall", "Bellarmine Hall", "Butler Hall", "Campion Hall", "Claver Hall", "Dorothy Day Hall", "Fernandez Center", "Fitness and Aquatics Center", "Hammerman Hall", "Hopkins Court", "Humanities Center", "Knott Hall", "Lange Court", "Loyola Notre Dame Library", "Maryland Hall", "McAuley Hall", "Newman Towers", "Rahner Village", "Sellinger School of Business", "Thea Bowman Hall"]
-
-
+    
+    @State private var isLoading = false // New state for loading screen
 
     var body: some View {
         ZStack {
@@ -39,18 +39,18 @@ struct CreateStarbucksView: View {
                     textFieldView("Please enter what is being picked up:", placeholder: "Pickup", text: $beingPickedUp)
                     textFieldView("Additional comments or requests:", placeholder: "Extras", text: $extra)
 
-                        Section(header: Text("Dropoff Location").font(.headline)) {
-                            Picker(selection: $locationDropoffIndex, label: Text("Please choose dropoff location").foregroundColor(.green)) {
-                                ForEach(0..<locations.count, id: \.self) { index in
-                                    Text(locations[index]).tag(index)
-                                }
+                    Section(header: Text("Dropoff Location").font(.headline)) {
+                        Picker(selection: $locationDropoffIndex, label: Text("Please choose dropoff location").foregroundColor(.green)) {
+                            ForEach(0..<locations.count, id: \.self) { index in
+                                Text(locations[index]).tag(index)
                             }
-                            .pickerStyle(InlinePickerStyle())
-                            .frame(width: 300, height: 100)
-                            .background(Color.white.opacity(0.1)) // Soft background color
-                            .cornerRadius(8)
-                            .padding()
                         }
+                        .pickerStyle(InlinePickerStyle())
+                        .frame(width: 300, height: 100)
+                        .background(Color.white.opacity(0.1)) // Soft background color
+                        .cornerRadius(8)
+                        .padding()
+                    }
                     
                     // Button to update order
                     Button("Update Order") {
@@ -73,6 +73,19 @@ struct CreateStarbucksView: View {
             // Loading inputs from UserDefaults when view appears
             loadInputs()
         }
+        .overlay(
+            Group {
+                if isLoading {
+                    Color.white.opacity(0.7) // Example loading screen color
+                        .ignoresSafeArea()
+                        .overlay(
+                            Text("Loading...")
+                                .font(.headline)
+                                .foregroundColor(.black)
+                        )
+                }
+            }
+        )
     }
     
     var closeButton: some View {
@@ -106,11 +119,16 @@ struct CreateStarbucksView: View {
     
     func updateOrderForUser() {
         storeInputs()
+        // Show loading screen
+        isLoading = true
+
         // Combine the inputs into a single string, or use a more structured approach if necessary
         let orderDetails = storedInputs.joined(separator: ", ")
 
         // Assuming username is available, replace 'yourUsername' with actual username
         apiService.updateOrder(username: username, newOrder: orderDetails) { result in
+            // Hide loading screen when process completes
+            isLoading = false
             self.updateResult = result
         }
     }
@@ -139,11 +157,10 @@ struct CreateStarbucksView: View {
         }
     }
 
-    
     func storeInputs() {
-            storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locations[locationDropoffIndex], extra]
-            UserDefaults.standard.set(storedInputs, forKey: "StoredInputsKey")
-        }
+        storedInputs = [grubhubNumber, grubhubName, beingPickedUp, locations[locationDropoffIndex], extra]
+        UserDefaults.standard.set(storedInputs, forKey: "StoredInputsKey")
+    }
     
     func loadInputs() {
         if let inputs = UserDefaults.standard.stringArray(forKey: "StoredInputsKey") {
@@ -158,3 +175,5 @@ struct CreateStarbucksView: View {
         }
     }
 }
+
+
